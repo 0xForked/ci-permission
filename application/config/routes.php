@@ -57,12 +57,11 @@ $route['db/rollback/(:num)']['GET'] = 'MigrationController/rollback/$1';
 
 // Auth
 $route['auth/register']= 'auth/Register/index';
-$route['auth/login']['GET'] = 'auth/Login/index';
+$route['auth/login'] = 'auth/Login/index';
 // $route['auth/logout']['GET'] = 'AuthController/logout';
 // $route['auth/confirm']['GET'] = 'AuthController/confirmAccount';
-$route['auth/password/forgot']['GET'] = 'auth/password/Forgot/index';
-$route['auth/password/forgot']['POST'] = 'auth/password/Forgot/forgot';
-// $route['auth/password/reset']['GET'] = 'AuthController/resetPassword';
+$route['auth/password/forgot'] = 'auth/password/Forgot/index';
+// $route['auth/password/reset'] = 'AuthController/resetPassword';
 // Auth-End
 
 $route['dash/home']['GET'] = 'admin/DashboardController/index';
