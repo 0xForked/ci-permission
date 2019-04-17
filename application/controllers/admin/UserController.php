@@ -67,6 +67,11 @@ class UserController extends CI_Controller {
             if ($user) {
                 $user_id = $this->db->insert_id();
                 $this->user->addRoles($user_id,  $role);
+
+                if ($this->input->post('status') == 0) {
+                    $message = "Selamat datang di CI-Permission untuk mengaktifkan akun silahkan klik link berikut: Link!";
+                    $this->sendMail($this->input->post('email'), $message);
+                }
             }
 
             redirect('dash/users', 'refresh');
@@ -98,6 +103,11 @@ class UserController extends CI_Controller {
                 'active' => $active
             ]);
 
+            if ($active == 0) {
+                $message = "Akun anda di nonaktifkan!";
+                $this->sendMail($user->email, $message);
+            }
+
             redirect('dash/users', 'refresh');
         }
     }
@@ -124,15 +134,12 @@ class UserController extends CI_Controller {
         $this->load->view('admin/user/edit', compact('title', 'user', 'roles', 'user_has_role'));
     }
 
-    private function sendMail(Array $data)
+    private function sendMail($to, $message)
     {
-        // ini kiri memail dpe fungsi nanti for kalau user dapa se
-        // nonakfit dpe akun atau dapa hapus
-        // atau pass buat baru for konfirmasi dsb
         $data = [
-            'to' => 'aasumitro@gmail.com',
-            'subject' => 'just test',
-            'message' => 'send data coy'
+            'to' => $to,
+            'subject' => 'New User',
+            'message' => $message
         ];
 
         $this->mailer->send($data);
