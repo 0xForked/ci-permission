@@ -12,7 +12,7 @@
                 <p>
                     This project is example of user auth and user management with permission and role grant
                     </br><a href="https://github.com/aasumitro/ci-permission-example">Repository</a> &#8226;
-                    <a href="https://github.com/aasumitro/ci-permission-example">Documentation</a> &#8226;
+                    <a href="https://github.com/aasumitro/ci-permission-example/blob/development/readme.md">Documentation</a> &#8226;
                     <a href="https://aasumitro.id">@author</a>
                 </p>
             </div>

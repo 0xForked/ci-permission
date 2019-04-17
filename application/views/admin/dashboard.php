@@ -6,8 +6,9 @@
     <body>
         <?php $this->load->view("_partials/navbar.php") ?>
 
-        <div class="container">
-            <h1>Hello, world!</h1>
+        <div class="container" style="margin-top:30px">
+            <h1>Hello,  <?= $this->auth->username() ?>!</h1>
+            <h4>You are logged in as <?= $this->auth->userRole() ?>!</h4>
         </div>
 
         <?php $this->load->view("_partials/footer.php") ?>

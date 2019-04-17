@@ -12,20 +12,20 @@ class Register extends CI_Controller
     {
         parent::__construct();
         $this->load->library('Mailer');
+
+        if($this->session->userdata('loginStatus')){
+            redirect('dash/home');
+        }
     }
 
     public function index()
     {
 		if ($this->validate()) {
-            // todo
-            // attemp
-            // save credential
-            // auto redirect to dashboard
-
-            //$user = $this->credentials($this->userName, $this->password);
-            if (true) {
-                var_dump('berhasil'); die();
-                //return $this->setUser();
+            $identity = $this->input->post('email');
+            $password = $this->input->post('password');
+            $user = $this->auth->credentials($identity, $password);
+            if ($user) {
+                return $this->auth->setUser($user);
             } else {
                 return $this->failedCallback();
             }

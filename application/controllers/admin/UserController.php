@@ -13,6 +13,7 @@ class UserController extends CI_Controller {
        parent::__construct();
        $this->load->helper('auth');
        $this->load->library('Mailer');
+       $this->auth->routeAccess();
     }
 
 	public function index()

@@ -13,24 +13,39 @@
             </div>
             <div class="card" style="width:21rem;margin: 0 auto;float: none;margin-top:25px">
                 <div class="card-body">
-                    <form>
+                    <?= form_open_multipart('auth/login'); ?>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="identity">Identity</label>
-                                    <input type="text" class="form-control" id="identity" value="email/username">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="identity"
+                                        name="identity"
+                                        required
+                                        placeholder="email or username"
+                                        value="<?= set_value('identity'); ?>"
+                                    >
+                                    <span style="color:red"><?= form_error('identity'); ?></span>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password">
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="password"
+                                        name="password"
+                                    >
+                                    <span style="color:red"><?= form_error('password'); ?></span>
                                 </div>
                             </div>
                         </div>
                         <a href="<?= base_url() ?>auth/password/forgot">Forgot password?</a>
                         <button type="submit" class="btn btn-primary" style="float:right">Sign In</button>
-                    </form>
+                    <?= form_close(); ?>
                 </div>
             </div>
 

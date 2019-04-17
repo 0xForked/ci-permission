@@ -8,6 +8,9 @@ class Reset extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if($this->session->userdata('loginStatus')){
+            redirect('dash/home');
+        }
     }
 
     public function index()
@@ -15,7 +18,7 @@ class Reset extends CI_Controller
         // ini dpe view
     }
 
-    public function reset()
+    private function validate()
     {
         // ini dpe fungsi, abis dia reset password dia mo kirim konfirmasi email
     }

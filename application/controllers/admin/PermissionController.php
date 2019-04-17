@@ -8,6 +8,7 @@ class PermissionController extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
+       $this->auth->routeAccess();
     }
 
 	public function index()

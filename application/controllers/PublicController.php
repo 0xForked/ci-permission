@@ -10,5 +10,5 @@ class PublicController extends CI_Controller {
             'subtitle' => 'welcome'
         ];
 		$this->load->view('welcome', $data);
-	}
+    }
 }

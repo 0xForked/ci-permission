@@ -7,6 +7,7 @@ class Auth
     public $user = null;
     public $userID = null;
     public $userName = null;
+    public $email = null;
     public $password = null;
     public $roles = 0;  // [ public $roles = null ] codeIgniter where_in() omitted for null.
     public $permissions = null;
@@ -23,71 +24,40 @@ class Auth
     {
         if ($this->CI->session->has_userdata("userID") && $this->CI->session->loginStatus) {
             $this->userID = $this->CI->session->userID;
-            $this->userName = $this->CI->session->userName;
+            $this->userName = $this->CI->session->username;
+            $this->email = $this->CI->session->email;
             $this->roles = $this->CI->session->roles;
             $this->loginStatus = true;
         }
         return;
     }
 
-    // public function showLoginForm($data = [])
-    // {
-    //     return $this->CI->load->view("auth/login", $data);
-    // }
-
-    // public function login($request)
-    // {
-    //     if ($this->validate($request)) {
-    //         $this->user = $this->credentials($this->userName, $this->password);
-    //         if ($this->user) {
-    //             return $this->setUser();
-    //         } else {
-    //             return $this->failedLogin($request);
-    //         }
-    //     }
-    //     return false;
-    // }
-
-    // protected function validate($request)
-    // {
-    //     $this->CI->form_validation->set_rules('username', 'User Name', 'required');
-    //     $this->CI->form_validation->set_rules('password', 'Password', 'required');
-    //     if ($this->CI->form_validation->run() == TRUE) {
-    //         /*$this->userName = $request["username"];
-    //         $this->password = $request["password"];*/
-    //         $this->userName = $this->CI->input->post("username", TRUE);
-    //         $this->password = $this->CI->input->post("password", TRUE);
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    protected function credentials($username, $password)
+    public function credentials($identity, $password)
     {
-        $user = $this->CI->db->get_where("users", array("username" => $username, "status" => 1))->row(0);
+        $user = $this->CI->db->get_where("users", ["username" => $identity, "active" => 1])->row(0);
+        if (!$user) {
+            $user = $this->CI->db->get_where("users", ["email" => $identity, "active" => 1])->row(0);
+        }
+
         if($user && password_verify($password, $user->password)) {
             return $user;
         }
         return false;
     }
 
-    protected function setUser()
+    public function setUser($user)
     {
-        $this->userID = $this->user->id;
+        $user = (Object)$user;
+        $this->userID = $user->id;
         $this->CI->session->set_userdata(array(
-            "userID" => $this->user->id,
-            "username" => $this->user->username,
+            "userID" => $user->id,
+            "username" => $user->username,
+            "email" => $user->email,
             "roles" => $this->userHasRoles(),
             "loginStatus" => true
         ));
-        return redirect("home");
+        return redirect("dash/home");
     }
-
-    // protected function failedLogin($request)
-    // {
-    //     $this->error["failed"] = "Username or Password Incorrect.";
-    //     return $this->error;
-    // }
 
     public function loginStatus()
     {
@@ -97,7 +67,7 @@ class Auth
     public function authenticate()
     {
         if (!$this->loginStatus()) {
-            return redirect('login');
+            return redirect('auth/login');
         }
         return true;
     }
@@ -146,22 +116,27 @@ class Auth
         }, $this->CI->db->get_where("user_has_role", array("user_id" => $this->userID()))->result_array());
     }
 
+    public function userRole()
+    {
+        return $this->userRoles($this->roles[0])[0];
+    }
+
     public function userRoles()
     {
         return array_map(function ($item) {
-            return $item["name"];
+            return $item["title"];
         }, $this->CI->db
             ->select("roles.*")
             ->from("roles")
             ->join("user_has_role", "roles.id = user_has_role.role_id", "inner")
-            ->where(["user_has_role.user_id" => $this->userID(), "roles.status" => 1])
+            ->where(["user_has_role.user_id" => $this->userID()])
             ->get()->result_array());
     }
 
     public function userPermissions()
     {
         return array_map(function ($item) {
-            return $item["name"];
+            return $item["title"];
         }, $this->CI->db
         ->select("permissions.*")
         ->from("permissions")
@@ -195,11 +170,12 @@ class Auth
         return $this->routeAccess();
     }
 
+    // masi ada masalah disini
     public function routeAccess()
     {
         $this->check();
         $routeName = (is_null($this->CI->uri->segment(2)) ? "index" : $this->CI->uri->segment(2)) . "-" . $this->CI->uri->segment(1);
-        if ($this->CI->uri->segment(1) == 'home')
+        if ($this->CI->uri->segment(1) == 'dash')
             return true;
         if($this->can($routeName))
             return true;
@@ -258,7 +234,7 @@ class Auth
 
     public function logout()
     {
-        $this->CI->session->unset_userdata(array("userID", "username", "loginStatus"));
+        $this->CI->session->unset_userdata(array("userID", "username", "email", "loginStatus"));
         $this->CI->session->sess_destroy();
         return true;
     }

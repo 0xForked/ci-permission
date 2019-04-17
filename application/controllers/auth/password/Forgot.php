@@ -8,6 +8,9 @@ class Forgot extends CI_Controller
     {
         parent::__construct();
         $this->load->library('Mailer');
+        if($this->session->userdata('loginStatus')){
+            redirect('dash/home');
+        }
     }
 
     public function index()

@@ -28,81 +28,95 @@
                     Home <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <?php if(true) : ?>
-                <li class="nav-item dropdown <?php
+            <?php if($this->auth->loginStatus()) : ?>
+                <li class="nav-item <?php
                     if (isset($title)) {
-                        if ($title === 'user') {
+                        if ($title === 'dashboard') {
                             echo 'active';
                         }
                     }
                 ?>">
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        User
+                    <a class="nav-link" href="<?= base_url() ?>dash/home">
+                        Dashboard <span class="sr-only"></span>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= base_url() ?>dash/users">List</a>
-                    <a class="dropdown-item" href="<?= base_url() ?>dash/users/create">Create</a>
                 </li>
-            <?php endif; ?>
-            <?php if(true) : ?>
-                <li class="nav-item dropdown <?php
-                    if (isset($title)) {
-                        if ($title === 'role') {
-                            echo 'active';
+                <?php if(true) : ?>
+                    <li class="nav-item dropdown <?php
+                        if (isset($title)) {
+                            if ($title === 'user') {
+                                echo 'active';
+                            }
                         }
-                    }
-                ?>">
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        Role
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= base_url() ?>dash/roles">List</a>
-                    <a class="dropdown-item" href="<?= base_url() ?>dash/roles/create">Create</a>
-                </li>
-            <?php endif; ?>
-            <?php if(true) : ?>
-                <li class="nav-item dropdown <?php
-                    if (isset($title)) {
-                        if ($title === 'permission') {
-                            echo 'active';
+                    ?>">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            User
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/users">List</a>
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/users/create">Create</a>
+                    </li>
+                <?php endif; ?>
+                <?php if(true) : ?>
+                    <li class="nav-item dropdown <?php
+                        if (isset($title)) {
+                            if ($title === 'role') {
+                                echo 'active';
+                            }
                         }
-                    }
-                ?>">
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        Permission
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= base_url() ?>dash/permissions">List</a>
-                    <a class="dropdown-item" href="<?= base_url() ?>dash/permissions/create">Create</a>
-                </li>
+                    ?>">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Role
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/roles">List</a>
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/roles/create">Create</a>
+                    </li>
+                <?php endif; ?>
+                <?php if(true) : ?>
+                    <li class="nav-item dropdown <?php
+                        if (isset($title)) {
+                            if ($title === 'permission') {
+                                echo 'active';
+                            }
+                        }
+                    ?>">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Permission
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/permissions">List</a>
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/permissions/create">Create</a>
+                    </li>
+                <?php endif; ?>
             <?php endif; ?>
         </ul>
         <div class="my-2 my-lg-0">
-            <?php if(true) : ?>
+            <!-- kalau login status === false se tunjung login dng register button -->
+            <?php if(!$this->auth->loginStatus()) : ?>
                 <a class="btn btn-outline-success my-2 my-sm-0" href="<?= base_url() ?>auth/login">Login</a>
                 <a class="btn btn-outline-success my-2 my-sm-0" href="<?= base_url() ?>auth/register">Register</a>
             <?php else : ?>

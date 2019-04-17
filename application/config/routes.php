@@ -58,10 +58,10 @@ $route['db/rollback/(:num)']['GET'] = 'MigrationController/rollback/$1';
 // Auth
 $route['auth/register']= 'auth/Register/index';
 $route['auth/login'] = 'auth/Login/index';
-// $route['auth/logout']['GET'] = 'AuthController/logout';
-// $route['auth/confirm']['GET'] = 'AuthController/confirmAccount';
+$route['auth/logout'] = 'auth/Login/logout';
 $route['auth/password/forgot'] = 'auth/password/Forgot/index';
 // $route['auth/password/reset'] = 'AuthController/resetPassword';
+// $route['auth/confirm']['GET'] = 'AuthController/confirmAccount';
 // Auth-End
 
 $route['dash/home']['GET'] = 'admin/DashboardController/index';
