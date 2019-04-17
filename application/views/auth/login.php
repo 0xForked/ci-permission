@@ -7,6 +7,7 @@
         <?php $this->load->view("_partials/navbar.php") ?>
 
         <div class="container">
+            <?php if($this->session->flashdata('message')) echo $this->session->flashdata('message');?>
             <div class="text-center" style="margin-top:50px">
                 <h1>Sign In!</h1>
             </div>
@@ -27,7 +28,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/auth/password/forgot">Forgot password?</a>
+                        <a href="<?= base_url() ?>auth/password/forgot">Forgot password?</a>
                         <button type="submit" class="btn btn-primary" style="float:right">Sign In</button>
                     </form>
                 </div>

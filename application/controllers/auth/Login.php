@@ -14,4 +14,19 @@ class Login extends CI_Controller
 		$this->load->view('auth/login');
     }
 
+    public function login()
+    {
+
+    }
+
+    private function validate()
+    {
+
+    }
+
+    private function failedCallback()
+    {
+
+    }
+
 }

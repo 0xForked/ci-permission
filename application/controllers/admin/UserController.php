@@ -12,6 +12,7 @@ class UserController extends CI_Controller {
     {
        parent::__construct();
        $this->load->helper('auth');
+       $this->load->library('Mailer');
     }
 
 	public function index()
@@ -123,8 +124,17 @@ class UserController extends CI_Controller {
         $this->load->view('admin/user/edit', compact('title', 'user', 'roles', 'user_has_role'));
     }
 
-    private function sendMail()
+    private function sendMail(Array $data)
     {
+        // ini kiri memail dpe fungsi nanti for kalau user dapa se
+        // nonakfit dpe akun atau dapa hapus
+        // atau pass buat baru for konfirmasi dsb
+        $data = [
+            'to' => 'aasumitro@gmail.com',
+            'subject' => 'just test',
+            'message' => 'send data coy'
+        ];
 
+        $this->mailer->send($data);
     }
 }

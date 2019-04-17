@@ -35,32 +35,32 @@ class Auth
     //     return $this->CI->load->view("auth/login", $data);
     // }
 
-    public function login($request)
-    {
-        if ($this->validate($request)) {
-            $this->user = $this->credentials($this->userName, $this->password);
-            if ($this->user) {
-                return $this->setUser();
-            } else {
-                return $this->failedLogin($request);
-            }
-        }
-        return false;
-    }
+    // public function login($request)
+    // {
+    //     if ($this->validate($request)) {
+    //         $this->user = $this->credentials($this->userName, $this->password);
+    //         if ($this->user) {
+    //             return $this->setUser();
+    //         } else {
+    //             return $this->failedLogin($request);
+    //         }
+    //     }
+    //     return false;
+    // }
 
-    protected function validate($request)
-    {
-        $this->CI->form_validation->set_rules('username', 'User Name', 'required');
-        $this->CI->form_validation->set_rules('password', 'Password', 'required');
-        if ($this->CI->form_validation->run() == TRUE) {
-            /*$this->userName = $request["username"];
-            $this->password = $request["password"];*/
-            $this->userName = $this->CI->input->post("username", TRUE);
-            $this->password = $this->CI->input->post("password", TRUE);
-            return true;
-        }
-        return false;
-    }
+    // protected function validate($request)
+    // {
+    //     $this->CI->form_validation->set_rules('username', 'User Name', 'required');
+    //     $this->CI->form_validation->set_rules('password', 'Password', 'required');
+    //     if ($this->CI->form_validation->run() == TRUE) {
+    //         /*$this->userName = $request["username"];
+    //         $this->password = $request["password"];*/
+    //         $this->userName = $this->CI->input->post("username", TRUE);
+    //         $this->password = $this->CI->input->post("password", TRUE);
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     protected function credentials($username, $password)
     {
@@ -83,11 +83,11 @@ class Auth
         return redirect("home");
     }
 
-    protected function failedLogin($request)
-    {
-        $this->error["failed"] = "Username or Password Incorrect.";
-        return $this->error;
-    }
+    // protected function failedLogin($request)
+    // {
+    //     $this->error["failed"] = "Username or Password Incorrect.";
+    //     return $this->error;
+    // }
 
     public function loginStatus()
     {
@@ -176,7 +176,7 @@ class Auth
         if (is_array($methods) && count(is_array($methods))) {
             foreach ($methods as $method) {
                 if ($method == (is_null($this->CI->uri->segment(2)) ? "index" : $this->CI->uri->segment(2))) {
-                    return $this->route_access();
+                    return $this->routeAccess();
                 }
             }
         }
@@ -192,10 +192,10 @@ class Auth
                 }
             }
         }
-        return $this->route_access();
+        return $this->routeAccess();
     }
 
-    public function route_access()
+    public function routeAccess()
     {
         $this->check();
         $routeName = (is_null($this->CI->uri->segment(2)) ? "index" : $this->CI->uri->segment(2)) . "-" . $this->CI->uri->segment(1);

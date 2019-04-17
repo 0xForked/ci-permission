@@ -102,7 +102,7 @@
             <?php endif; ?>
         </ul>
         <div class="my-2 my-lg-0">
-            <?php if(false) : ?>
+            <?php if(true) : ?>
                 <a class="btn btn-outline-success my-2 my-sm-0" href="<?= base_url() ?>auth/login">Login</a>
                 <a class="btn btn-outline-success my-2 my-sm-0" href="<?= base_url() ?>auth/register">Register</a>
             <?php else : ?>
