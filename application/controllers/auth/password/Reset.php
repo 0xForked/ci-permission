@@ -8,7 +8,7 @@ class Reset extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if($this->session->userdata('loginStatus')){
+		if($this->auth->loginStatus()){
             redirect('dash/home');
         }
     }
