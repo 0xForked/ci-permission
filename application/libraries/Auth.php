@@ -170,7 +170,6 @@ class Auth
         return $this->routeAccess();
     }
 
-    // masi ada masalah disini
     public function routeAccess()
     {
         $this->check();

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">CI</a>
+    <a class="navbar-brand" href="<?= base_url() ?>">CI</a>
     <button
         class="navbar-toggler"
         type="button"
@@ -17,6 +17,7 @@
         id="navbarSupportedContent"
     >
         <ul class="navbar-nav mr-auto">
+            <?php if(!$this->auth->loginStatus()) : ?>
             <li class="nav-item <?php
                 if (isset($title)) {
                     if ($title === 'home') {
@@ -28,6 +29,8 @@
                     Home <span class="sr-only">(current)</span>
                 </a>
             </li>
+            <?php endif; ?>
+
             <?php if($this->auth->loginStatus()) : ?>
                 <li class="nav-item <?php
                     if (isset($title)) {
@@ -40,7 +43,44 @@
                         Dashboard <span class="sr-only"></span>
                     </a>
                 </li>
-                <?php if(true) : ?>
+                
+                <li class="nav-item dropdown <?php
+                    if (isset($title)) {
+                        if ($title === 'access') {
+                            echo 'active';
+                        }
+                    }
+                ?>">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        Access
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <?php if(hasRole('root')) : ?>
+                    <a class="dropdown-item" href="<?= base_url() ?>dash/access/root">Root</a>
+                    <?php endif; ?>
+                    <?php if(hasRole('vendor')) : ?>
+                    <a class="dropdown-item" href="<?= base_url() ?>dash/access/vendor">Vendor</a>
+                    <?php endif; ?>
+                    <?php if(hasRole('admin')) : ?>
+                    <a class="dropdown-item" href="<?= base_url() ?>dash/access/admin">Admin</a>
+                    <?php endif; ?>
+                    <?php if(hasRole('staff')) : ?>
+                    <a class="dropdown-item" href="<?= base_url() ?>dash/access/staff">Staff</a>
+                    <?php endif; ?>
+                    <?php if(hasRole('member')) : ?>
+                    <a class="dropdown-item" href="<?= base_url() ?>dash/access/member">Member</a>
+                    <?php endif; ?>
+
+                </li>
+                <?php if(hasRole(['root', 'vendor', 'admin'])) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'user') {
@@ -64,7 +104,31 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/users/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(true) : ?>
+                <?php if(hasRole(['root', 'vendor'])) : ?>
+                    <li class="nav-item dropdown <?php
+                        if (isset($title)) {
+                            if ($title === 'company') { 
+                                echo 'active';
+                            }
+                        }
+                    ?>">
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Company
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/companies">List</a>
+                        <a class="dropdown-item" href="<?= base_url() ?>dash/companies/create">Create</a>
+                    </li>
+                <?php endif; ?>
+                <?php if(hasRole('root')) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'role') {
@@ -88,7 +152,7 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/roles/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(true) : ?>
+                <?php if(hasRole('root')) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'permission') {

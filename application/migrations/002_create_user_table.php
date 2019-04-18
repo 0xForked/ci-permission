@@ -96,19 +96,21 @@ class Migration_Create_User_Table extends CI_Migration {
 				'constraint' => '50',
 				'null'       => TRUE
 			],
-			'company' => [
-				'type'       => 'VARCHAR',
-				'constraint' => '100',
-				'null'       => TRUE
-			],
 			'phone' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '20',
 				'null'       => TRUE
-			]
+			],
+			'company_id' => [
+				'type'              => 'INT',
+				'constraint'        => 5,
+				'unsigned'          => TRUE,
+				'null'       		=> TRUE
+            ]
 		]);
 
-        $this->dbforge->add_key('id', TRUE);
+		$this->dbforge->add_key('id', TRUE);
+		$this->dbforge->add_field("CONSTRAINT FOREIGN KEY (company_id) REFERENCES companies(id)");
         $this->dbforge->create_table('users');
 
         $this->seeds();
@@ -134,7 +136,52 @@ class Migration_Create_User_Table extends CI_Migration {
                 'active'                  => '1',
                 'first_name'              => 'Root',
                 'last_name'               => 'User',
-                'company'                 => 'BAKODE',
+                'company_id'              => NULL,
+                'phone'                   => '0',
+			],
+            [
+                'ip_address'              => '127.0.0.1',
+                'username'                => 'vendor',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'email'                   => 'vendor@test.id',
+                'activation_code'         => '',
+                'forgotten_password_code' => NULL,
+                'created_on'              => '1268889823',
+                'last_login'              => '1268889823',
+                'active'                  => '1',
+                'first_name'              => 'Vendor',
+                'last_name'               => 'User',
+                'company_id'              => NULL,
+                'phone'                   => '0',
+			],
+            [
+                'ip_address'              => '127.0.0.1',
+                'username'                => 'admin',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'email'                   => 'admin@test.id',
+                'activation_code'         => '',
+                'forgotten_password_code' => NULL,
+                'created_on'              => '1268889823',
+                'last_login'              => '1268889823',
+                'active'                  => '1',
+                'first_name'              => 'Admin',
+                'last_name'               => 'User',
+                'company_id'              => 1,
+                'phone'                   => '0',
+			],
+            [
+                'ip_address'              => '127.0.0.1',
+                'username'                => 'staff',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'email'                   => 'staff@test.id',
+                'activation_code'         => '',
+                'forgotten_password_code' => NULL,
+                'created_on'              => '1268889823',
+                'last_login'              => '1268889823',
+                'active'                  => '1',
+                'first_name'              => 'Staff',
+                'last_name'               => 'User',
+                'company_id'              => 1,
                 'phone'                   => '0',
             ]
         ];

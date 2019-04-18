@@ -98,7 +98,8 @@ $autoload['drivers'] = array();
 $autoload['helper'] = [
     'url',
     'form',
-    'text'
+    'text',
+    'auth'
 ];
 
 
@@ -146,6 +147,7 @@ $autoload['language'] = array();
 $autoload['model'] = [
     'permission',
     'role',
-    'user'
+    'user',
+    'company'
 ];
 

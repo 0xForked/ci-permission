@@ -11,9 +11,17 @@ class UserController extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
-       $this->load->helper('auth');
        $this->load->library('Mailer');
-       $this->auth->routeAccess();
+        
+        // check user so 
+        $this->auth->routeAccess();
+
+        // check if user is ... 
+        // if not redirect to user role page
+        if (!hasRole(['admin', 'root', 'vendor'])) {
+            show_404();
+        }
+
     }
 
 	public function index()
@@ -24,16 +32,17 @@ class UserController extends CI_Controller {
         $users = [];
         foreach ($user_data as $user) {
             $role = $this->user->userHasRoleDetails($user->id);
+            $company = $this->company->find($user->company_id);
             $users[] = (object) [
                 'id' => $user->id,
                 'username' => $user->username,
                 'email' => $user->email,
                 'active' => $user->active,
-                'role' => $role[0]
+                'role' => $role[0],
+                'company' => $company
             ];
         }
-
-		$this->load->view('admin/user/index', compact('title', 'users', 'roles'));
+		$this->load->view('dash/user/index', compact('title', 'users'));
     }
 
     public function create()
@@ -123,7 +132,8 @@ class UserController extends CI_Controller {
     {
         $title = self::TAG;
         $roles = $this->role->all();
-        $this->load->view('admin/user/create', compact('title', 'roles'));
+        $companies = $this->company->all();
+        $this->load->view('dash/user/create', compact('title', 'roles', 'companies'));
     }
 
     private function updateView($id)
@@ -131,8 +141,9 @@ class UserController extends CI_Controller {
         $title = self::TAG;
         $user = $this->user->find($id);
         $roles = $this->role->all();
+        $companies = $this->company->all();
         $user_has_role = $this->user->userHasRoles($id);
-        $this->load->view('admin/user/edit', compact('title', 'user', 'roles', 'user_has_role'));
+        $this->load->view('dash/user/edit', compact('title', 'user', 'roles', 'companies', 'user_has_role'));
     }
 
     private function sendMail($to, $message)

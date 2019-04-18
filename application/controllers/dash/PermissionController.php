@@ -8,14 +8,22 @@ class PermissionController extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
-       $this->auth->routeAccess();
+        
+        // check user isLoggedIn 
+        $this->auth->routeAccess();
+
+        // check if user is ... 
+        // if not redirect to user role page
+        if (!hasRole('root')) {
+            show_404();
+        }
     }
 
 	public function index()
 	{
         $title = self::TAG;
         $permissions = $this->permission->all();
-		$this->load->view('admin/permission/index', compact('permissions', 'title'));
+		$this->load->view('dash/permission/index', compact('permissions', 'title'));
     }
 
     public function create()
@@ -48,6 +56,6 @@ class PermissionController extends CI_Controller {
     private function createView()
     {
         $title = self::TAG;
-        $this->load->view('admin/permission/create', compact('title'));
+        $this->load->view('dash/permission/create', compact('title'));
     }
 }

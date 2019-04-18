@@ -15,6 +15,8 @@ if(! function_exists("check")) {
     }
 }
 
+//if( can('edit-posts') ) {}
+//if( can(['edit-posts', 'publish-posts']) ) {}
 if(! function_exists("can")) {
     function can($permissions)
     {
@@ -23,6 +25,8 @@ if(! function_exists("can")) {
     }
 }
 
+//if( hasRoles(['admin', 'editor']) ) {}
+//if( hasRoles('subscriber') ) {}   
 if(! function_exists("hasRole")) {
     function hasRole($roles)
     {

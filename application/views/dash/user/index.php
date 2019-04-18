@@ -13,6 +13,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Company</th>
                     <th scope="col">Role</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
@@ -25,6 +26,11 @@
                             <th scope="row"><?= $number ?></th>
                             <td><?= $user->username ?></td>
                             <td><?= $user->email ?></td>
+                            <td>
+                                <?php if ((String)$user->role->title == 'root'): echo 'seanesia' ?>
+                                <?php elseif ((String)$user->role->title == 'vendor'): echo 'pelindo' ?>
+                                <?php else: echo $user->company->title ?><?php endif ?>
+                            </td>
                             <td>
                                 <div class="badge
                                     <?php if ((String)$user->role->title == 'root'): echo 'badge-danger' ?>

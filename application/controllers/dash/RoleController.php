@@ -8,14 +8,22 @@ class RoleController extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
-       $this->auth->routeAccess();
+        
+        // check user isLoggedIn 
+        $this->auth->routeAccess();
+
+        // check if user is ... 
+        // if not redirect to user role page
+        if (!hasRole('root')) {
+            show_404();
+        }
     }
 
 	public function index()
 	{
         $title = self::TAG;
         $roles = $this->role->all();
-		$this->load->view('admin/role/index', compact('title', 'roles'));
+		$this->load->view('dash/role/index', compact('title', 'roles'));
     }
 
     public function create()
@@ -87,7 +95,7 @@ class RoleController extends CI_Controller {
     {
         $title = self::TAG;
         $permissions = $this->permission->all();
-        $this->load->view('admin/role/create', compact('title', 'permissions'));
+        $this->load->view('dash/role/create', compact('title', 'permissions'));
     }
 
     private function updateView($id)
@@ -96,6 +104,6 @@ class RoleController extends CI_Controller {
         $role = $this->role->find($id);
         $permissions = $this->permission->all();
         $role_has_permission = $this->role->roleHasPermissions($id);
-        $this->load->view('admin/role/edit', compact('title', 'role', 'permissions', 'role_has_permission'));
+        $this->load->view('dash/role/edit', compact('title', 'role', 'permissions', 'role_has_permission'));
     }
 }
