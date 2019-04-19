@@ -76,7 +76,9 @@
                                 <div class="form-group">
                                     <label for="role">Company</label>
                                     <select class="form-control" id="company" name="company">
+                                        <?php if (hasRole(['root', 'vendor'])): ?>
                                         <option value="0" <?= ($user->company_id === null) ? 'selected' : ' '?>>Not Set</option>
+                                        <?php endif; ?>
                                         <?php foreach($companies as $company): ?>
                                             <option value="<?= $company->id ?>" <?= ($company->id === $user->company_id) ? 'selected' : ' '?>><?= $company->title ?></option>
                                         <?php endforeach; ?>

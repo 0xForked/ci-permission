@@ -75,7 +75,7 @@ class User extends CI_Model
 
     public function userHasRoles($id)
     {
-        return array_map(function($item){
+        return array_map(function($item) {
             return $item["role_id"];
         }, $this->db->get_where("user_has_role", ["user_id" => $id])->result_array());
     }
@@ -91,6 +91,22 @@ class User extends CI_Model
     public function findRole($id)
     {
         return $this->db->get_where("roles", ["id" => $id])->row(0);
+    }
+
+    public function usersWithRolesAndHasCompany(Array $id, $company_id = null)
+    {
+        $this->db->select('users.id, users.username, users.email, users.first_name, users.active');
+        $this->db->select('users.last_name, users.company_id, user_has_role.role_id');
+        $this->db->from('users');
+        $this->db->join('user_has_role', 'users.id = user_has_role.user_id');
+        $this->db->where_in('user_has_role.role_id', $id);
+        if ((Boolean)$company_id) {
+            $this->db->where('users.company_id', $company_id);
+        }
+
+        return array_map(function($item) {
+            return $item;
+        }, $this->db->get()->result());
     }
 }
 

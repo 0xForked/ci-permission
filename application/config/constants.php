@@ -83,3 +83,11 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+// CUSTOM CONST
+
+define('ROOT_ROLE', 1);
+define('VENDOR_ROLE', 2);
+define('ADMIN_ROLE', 3);
+define('STAFF_ROLE', 4);
+define('MEMBER_ROLE', 5);

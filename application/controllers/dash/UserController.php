@@ -4,21 +4,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class UserController extends CI_Controller {
 
     const TAG = 'user';
-    const DEFAULT_OFFICE = 'FPsLogic';
     const DEFAULT_PASSWORD = 'secret';
     const DEFAULT_PHONE = '+6282200000000';
+
 
     public function __construct()
     {
        parent::__construct();
        $this->load->library('Mailer');
-        
-        // check user so 
+
+        // check user so
         $this->auth->routeAccess();
 
-        // check if user is ... 
+        // check if user is ...
         // if not redirect to user role page
-        if (!hasRole(['admin', 'root', 'vendor'])) {
+        if (!hasRole(['root', 'vendor', 'admin'])) {
             show_404();
         }
 
@@ -27,7 +27,28 @@ class UserController extends CI_Controller {
 	public function index()
 	{
         $title = self::TAG;
-        $user_data = $this->user->all();
+        $company = $this->auth->company();
+
+        if (hasRole('root')) {
+            $user_data = $this->user->all();
+        }
+
+        if (hasRole('vendor')) {
+            $user_data = $this->user->usersWithRolesAndHasCompany([
+                            VENDOR_ROLE,
+                            ADMIN_ROLE,
+                            STAFF_ROLE
+                        ]);
+        }
+
+        if (hasRole('admin')) {
+            $user_data = $this->user->usersWithRolesAndHasCompany(
+                            [
+                                ADMIN_ROLE,
+                                STAFF_ROLE
+                            ], $company
+                        );
+        }
 
         $users = [];
         foreach ($user_data as $user) {
@@ -66,9 +87,9 @@ class UserController extends CI_Controller {
                 'active' => $this->input->post('status'),
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
-                'company' => self::DEFAULT_OFFICE,
                 'phone' => self::DEFAULT_PHONE,
-                'created_on' => time()
+                'created_on' => time(),
+                'company_id' => ((int)$this->input->post('company') === 0) ? null : (int)$this->input->post('company')
             ];
 
             $user = $this->user->add($data);
@@ -110,7 +131,8 @@ class UserController extends CI_Controller {
                 'username' => $username,
                 'first_name' => $first_name,
                 'last_name' => $last_name,
-                'active' => $active
+                'active' => $active,
+                'company_id' => ((int)$this->input->post('company') === 0) ? null : (int)$this->input->post('company')
             ]);
 
             if ($active == 0) {
@@ -131,18 +153,49 @@ class UserController extends CI_Controller {
     private function createView()
     {
         $title = self::TAG;
-        $roles = $this->role->all();
-        $companies = $this->company->all();
+
+        if (hasRole('root')) {
+            $roles = $this->role->all();
+            $companies = $this->company->all();
+        }
+
+        if (hasRole('vendor')) {
+            $roles = $this->role->whereNot([ROOT_ROLE]);
+            $companies = $this->company->all();
+        }
+
+        if (hasRole('admin')) {
+            $company = $this->auth->company();
+            $roles = $this->role->whereNot([ROOT_ROLE, VENDOR_ROLE, MEMBER_ROLE]);
+            $companies = $this->company->findAll($company);
+        }
+
         $this->load->view('dash/user/create', compact('title', 'roles', 'companies'));
     }
 
     private function updateView($id)
     {
         $title = self::TAG;
+
+        if (hasRole('root')) {
+            $roles = $this->role->all();
+            $companies = $this->company->all();
+        }
+
+        if (hasRole('vendor')) {
+            $roles = $this->role->whereNot([ROOT_ROLE]);
+            $companies = $this->company->all();
+        }
+
+        if (hasRole('admin')) {
+            $company = $this->auth->company();
+            $roles = $this->role->whereNot([ROOT_ROLE, VENDOR_ROLE, MEMBER_ROLE]);
+            $companies = $this->company->findAll($company);
+        }
+
         $user = $this->user->find($id);
-        $roles = $this->role->all();
-        $companies = $this->company->all();
         $user_has_role = $this->user->userHasRoles($id);
+
         $this->load->view('dash/user/edit', compact('title', 'user', 'roles', 'companies', 'user_has_role'));
     }
 

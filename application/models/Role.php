@@ -19,6 +19,16 @@ class Role extends CI_Model
         return $this->db->get_where("roles", ["id" => $id])->row(0);
     }
 
+    public function whereNot(Array $id)
+    {
+        $this->db->select('*');
+        $this->db->from('roles');
+        $this->db->where_not_in('id', $id);
+        return array_map(function($item) {
+            return $item;
+        }, $this->db->get()->result());
+    }
+
     public function add($data)
     {
         return $this->db->insert('roles', $data);

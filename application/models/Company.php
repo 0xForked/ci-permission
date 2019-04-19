@@ -14,6 +14,11 @@ class Company extends CI_Model
         return $this->db->get("companies")->result();
     }
 
+    public function findAll($id)
+    {
+        return $this->db->get_where("companies", ["id" => $id])->result();
+    }
+
     public function find($id)
     {
         return $this->db->get_where("companies", ["id" => $id])->row(0);

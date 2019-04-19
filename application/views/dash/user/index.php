@@ -29,6 +29,7 @@
                             <td>
                                 <?php if ((String)$user->role->title == 'root'): echo 'seanesia' ?>
                                 <?php elseif ((String)$user->role->title == 'vendor'): echo 'pelindo' ?>
+                                <?php elseif ((String)$user->role->title == 'member'): echo 'customer' ?>
                                 <?php else: echo $user->company->title ?><?php endif ?>
                             </td>
                             <td>

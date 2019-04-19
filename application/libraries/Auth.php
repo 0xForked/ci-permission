@@ -10,6 +10,7 @@ class Auth
     public $email = null;
     public $password = null;
     public $roles = 0;  // [ public $roles = null ] codeIgniter where_in() omitted for null.
+    public $company = null;
     public $permissions = null;
     public $loginStatus = false;
     public $error = [];
@@ -27,6 +28,7 @@ class Auth
             $this->userName = $this->CI->session->username;
             $this->email = $this->CI->session->email;
             $this->roles = $this->CI->session->roles;
+            $this->company = $this->CI->session->company;
             $this->loginStatus = true;
         }
         return;
@@ -54,6 +56,7 @@ class Auth
             "username" => $user->username,
             "email" => $user->email,
             "roles" => $this->userHasRoles(),
+            "company" => $user->company_id,
             "loginStatus" => true
         ));
         return redirect("dash/home");
@@ -102,6 +105,11 @@ class Auth
     public function roles()
     {
         return $this->roles;
+    }
+
+    public function company()
+    {
+        return $this->company;
     }
 
     public function permissions()
@@ -233,7 +241,7 @@ class Auth
 
     public function logout()
     {
-        $this->CI->session->unset_userdata(array("userID", "username", "email", "loginStatus"));
+        $this->CI->session->unset_userdata(array("userID", "username", "email", "loginStatus", "roles", "company"));
         $this->CI->session->sess_destroy();
         return true;
     }
