@@ -42,12 +42,10 @@ class UserController extends CI_Controller {
         }
 
         if (hasRole('admin')) {
-            $user_data = $this->user->usersWithRolesAndHasCompany(
-                            [
-                                ADMIN_ROLE,
-                                STAFF_ROLE
-                            ], $company
-                        );
+            $user_data = $this->user->usersWithRolesAndHasCompany([
+                            ADMIN_ROLE,
+                            STAFF_ROLE
+                        ], $company);
         }
 
         $users = [];
