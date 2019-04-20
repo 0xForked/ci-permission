@@ -49,7 +49,7 @@ class Register extends CI_Controller
                 'active' => 1,
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
-                'company' => self::DEFAULT_OFFICE,
+                'company_id' => NULL,
                 'phone' => self::DEFAULT_PHONE,
                 'created_on' => time()
             ];
