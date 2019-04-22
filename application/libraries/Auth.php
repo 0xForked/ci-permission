@@ -10,14 +10,6 @@ class Auth
 	 */
     protected $ci;
 
-    /**
-	 * Hooks
-	 *
-	 * @var object
-	 */
-	protected $_hooks;
-
-    public $user = null;
     public $uid = null;
     public $username = null;
     public $email = null;
