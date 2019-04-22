@@ -34,7 +34,6 @@
                     <?= form_close(); ?>
                 </div>
             </div>
-
         </div>
 
         <?php $this->load->view("_partials/footer.php") ?>

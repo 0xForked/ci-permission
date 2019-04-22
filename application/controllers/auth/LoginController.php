@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller
+class LoginController extends CI_Controller
 {
 
     public function __construct()
@@ -22,7 +22,7 @@ class Login extends CI_Controller
             if ($user) {
                 return $this->auth->setUser($user);
             } else {
-                return $this->failedCallback();
+                redirect('auth/login', 'refresh');
             }
         }
 
@@ -39,15 +39,10 @@ class Login extends CI_Controller
         return false;
     }
 
-    private function failedCallback()
-    {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Login failed, wrong identity or password</div>');
-        redirect('auth/login', 'refresh');
-    }
-
     public function logout()
     {
         if($this->auth->logout()) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Logged out!</div>');
             return redirect('auth/login');
         }
         return false;

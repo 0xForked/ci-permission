@@ -99,7 +99,8 @@ $autoload['helper'] = [
     'url',
     'form',
     'text',
-    'auth'
+    'auth',
+    'dump'
 ];
 
 

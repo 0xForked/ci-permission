@@ -1,88 +1,89 @@
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+// rest password berdasarkan link dari email
 
-class Register extends CI_Controller
+class ResetPasswordController extends CI_Controller
 {
-
-    const DEFAULT_OFFICE = 'FPsLogic';
-    const DEFAULT_PHONE = '+6282200000000';
-    const DEFAULT_ROLE = 5; //member
-
     public function __construct()
     {
         parent::__construct();
         $this->load->library('Mailer');
-        if($this->auth->loginStatus()){
+		if($this->auth->loginStatus()){
             redirect('dash/home');
         }
     }
 
-    public function index()
+    public function index($code = null)
     {
-		if ($this->validate()) {
-            $identity = $this->input->post('email');
-            $password = $this->input->post('password');
-            $user = $this->auth->credentials($identity, $password);
-            if ($user) {
-                return $this->auth->setUser($user);
-            } else {
-                return $this->failedCallback();
+        if (!$_POST && !$code) {
+			show_404();
+		}
+
+        $validate = $this->validateToken($code);
+        if ($validate) {
+            if ($this->validateInput($validate)) {
+                $identity = $validate->email;
+                $password = $this->input->post('password');
+                $user = $this->auth->credentials($identity, $password);
+                if ($user) {
+                    return $this->auth->setUser($user);
+                } else {
+                    redirect('auth/login', 'refresh');
+                }
             }
+        } else {
+            show_404();
         }
 
-        $this->load->view('auth/register');
+		$this->load->view('auth/password/reset', compact('code'));
     }
 
-    private function validate()
+    private function validateInput($data)
     {
-        $this->form_validation->set_rules('first_name', 'First name', 'required');
-        $this->form_validation->set_rules('last_name', 'Last name', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
-        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required|callback_valid_password');
         $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'matches[password]');
+
         if ($this->form_validation->run() == TRUE) {
-            $data = [
-                'username' => $this->input->post('username'),
-                'email' => $this->input->post('email'),
-                'password' => $this->input->post('password'),
-                'active' => 1,
-                'first_name' => $this->input->post('first_name'),
-                'last_name' => $this->input->post('last_name'),
-                'company_id' => NULL,
-                'phone' => self::DEFAULT_PHONE,
-                'created_on' => time()
-            ];
-
-            $user = $this->user->add($data);
-            $role = self::DEFAULT_ROLE;
-
-            if ($user) {
-                $user_id = $this->db->insert_id();
-                $this->user->addRoles($user_id,  $role);
-                $this->sendMail($data['email']);
-            }
-
+            $this->user->setPassword($data->email, $this->input->post('password'));
+            $this->sendMail($data->email);
             return true;
         }
 
         return false;
     }
 
-    private function failedCallback()
+    private function validateToken($code)
     {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed register new Account!</div>');
-        redirect('auth/register', 'refresh');
+        $user = $this->user->findByForgottenPasswordCode($code);
+		if (!is_object($user)) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password reset unsuccess user not found</div>');
+			return FALSE;
+		} else {
+			if (FORGOT_PASSWORD_EXPIRATION > 0){
+				//Make sure it isn't expired
+				$expiration = FORGOT_PASSWORD_EXPIRATION;
+				if (time() - $user->forgotten_password_time > $expiration) {
+					//it has expired
+					$this->user->clearForgottenPasswordCode($user->id);
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Token was expired</div>');
+					return FALSE;
+				}
+			}
+			return $user;
+        }
+        return FALSE;
     }
 
     private function sendMail($to)
     {
         $data = [
             'to' => $to,
-            'subject' => 'Welcome',
-            'message' => 'Welcome to CI-Permission'
+            'subject' => 'CI-Permission Reset Password',
+            'message' => 'Reset password success!'
         ];
-        $this->mailer->send($data);
+
+        return $this->mailer->send($data);
     }
 
     public function valid_password($password = '')
@@ -129,4 +130,5 @@ class Register extends CI_Controller
 		}
 		return TRUE;
 	}
+
 }

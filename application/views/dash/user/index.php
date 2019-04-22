@@ -46,6 +46,10 @@
                                 <?= (isActive($user->active)) ? 'active' : 'inactive' ?>
                             </td>
                             <td>
+                                <?php if(isActive($user->active)): ?>
+                                    <!-- deactive user -->
+                                    <a href="<?= base_url() ?>dash/users/<?= $user->id ?>/deactive"><i class="fas fa-user-alt-slash"></i></a>
+                                <?php endif; ?>
                                 <a href="<?= base_url() ?>dash/users/<?= $user->id ?>/edit"><i class="fas fa-edit"></i></a>
                                 <a href="<?= base_url() ?>dash/users/<?= $user->id ?>"><i class="fas fa-trash-alt"></i></a>
                             </td>

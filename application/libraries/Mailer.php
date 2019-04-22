@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mailer
 {
-    protected $CI;
+    protected $ci;
 
     private $protocol;
     private $host;
@@ -16,23 +16,23 @@ class Mailer
 
     public function __construct()
     {
-        $this->CI = &get_instance();
+        $this->ci = &get_instance();
         $this->init();
 
-        $this->CI->load->library('email', $this->configs());
+        $this->ci->load->library('email', $this->configs());
     }
 
     private function init()
     {
-        $this->CI->config->load('mail');
-        $this->protocol = $this->CI->config->item('mail_protocol');
-        $this->host = $this->CI->config->item('mail_host');
-        $this->port = $this->CI->config->item('mail_port');
-        $this->user = $this->CI->config->item('mail_user');
-        $this->password = $this->CI->config->item('mail_password');
-        $this->type = $this->CI->config->item('mail_type');
-        $this->charset = $this->CI->config->item('mail_charset');
-        $this->sender = $this->CI->config->item('mail_sender_name');
+        $this->ci->config->load('mail');
+        $this->protocol = $this->ci->config->item('mail_protocol');
+        $this->host = $this->ci->config->item('mail_host');
+        $this->port = $this->ci->config->item('mail_port');
+        $this->user = $this->ci->config->item('mail_user');
+        $this->password = $this->ci->config->item('mail_password');
+        $this->type = $this->ci->config->item('mail_type');
+        $this->charset = $this->ci->config->item('mail_charset');
+        $this->sender = $this->ci->config->item('mail_sender_name');
     }
 
     public function send(Array $data)
@@ -57,12 +57,12 @@ class Mailer
 
     private function do($to, $subject, $message)
     {
-        $this->CI->email->set_newline("\r\n");
-        $this->CI->email->from($this->user, $this->sender);
-        $this->CI->email->to($to);
-        $this->CI->email->subject($subject);
-        $this->CI->email->message($message);
-        if ($this->CI->email->send()) {
+        $this->ci->email->set_newline("\r\n");
+        $this->ci->email->from($this->user, $this->sender);
+        $this->ci->email->to($to);
+        $this->ci->email->subject($subject);
+        $this->ci->email->message($message);
+        if ($this->ci->email->send()) {
             return true;
         } else {
             return false;

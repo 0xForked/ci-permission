@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Forgot extends CI_Controller
+class ForgotPasswordController extends CI_Controller
 {
 
     public function __construct()
@@ -26,9 +26,15 @@ class Forgot extends CI_Controller
     private function validate()
     {
         $user_email = $this->input->post('email');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|callback_mail_exists');
         if ($this->form_validation->run() == TRUE) {
-            $mail = $this->sendMail($user_email);
+            $forgot_code = $this->user->forgottenPassword($user_email);
+            if (!$forgot_code) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed generate code</div>');
+                redirect('auth/password/forgot', 'refresh');
+            }
+
+            $mail = $this->sendMail($user_email, $forgot_code);
             if (!$mail) {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed send reset password link</div>');
                 redirect('auth/password/forgot', 'refresh');
@@ -39,14 +45,25 @@ class Forgot extends CI_Controller
         return false;
     }
 
-    private function sendMail($to)
+    private function sendMail($to, $code)
     {
         $data = [
             'to' => $to,
             'subject' => 'CI-Permission Reset Password',
-            'message' => 'ini secret link'
+            'message' => '<a href="'.base_url().'auth/password/reset/'.$code.'">Link</a>'
         ];
 
         return $this->mailer->send($data);
     }
+
+    public function mail_exists($email)
+    {
+        $user = $this->user->find(NULL, $email);
+        if (!$user) {
+			$this->form_validation->set_message('mail_exists', 'Oops we couldnt find user with that address.');
+			return FALSE;
+        }
+		return TRUE;
+    }
+
 }

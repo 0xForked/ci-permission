@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Create_User_Table extends CI_Migration {
+class Migration_Create_User_Credential_Table extends CI_Migration {
 
     public function up()
     {
@@ -29,6 +29,11 @@ class Migration_Create_User_Table extends CI_Migration {
 				'type'       => 'VARCHAR',
 				'constraint' => '254',
 				'unique' => TRUE
+            ],
+            'phone' => [
+				'type'       => 'VARCHAR',
+				'constraint' => '20',
+				'null'       => TRUE
 			],
 			'activation_selector' => [
 				'type'       => 'VARCHAR',
@@ -86,21 +91,6 @@ class Migration_Create_User_Table extends CI_Migration {
 				'unsigned'   => TRUE,
 				'null'       => TRUE
 			],
-			'first_name' => [
-				'type'       => 'VARCHAR',
-				'constraint' => '50',
-				'null'       => TRUE
-			],
-			'last_name' => [
-				'type'       => 'VARCHAR',
-				'constraint' => '50',
-				'null'       => TRUE
-			],
-			'phone' => [
-				'type'       => 'VARCHAR',
-				'constraint' => '20',
-				'null'       => TRUE
-			],
 			'company_id' => [
 				'type'              => 'INT',
 				'constraint'        => 5,
@@ -134,8 +124,6 @@ class Migration_Create_User_Table extends CI_Migration {
                 'created_on'              => '1268889823',
                 'last_login'              => '1268889823',
                 'active'                  => '1',
-                'first_name'              => 'Root',
-                'last_name'               => 'User',
                 'company_id'              => NULL,
                 'phone'                   => '0',
 			],
@@ -149,8 +137,6 @@ class Migration_Create_User_Table extends CI_Migration {
                 'created_on'              => '1268889823',
                 'last_login'              => '1268889823',
                 'active'                  => '1',
-                'first_name'              => 'Vendor',
-                'last_name'               => 'User',
                 'company_id'              => NULL,
                 'phone'                   => '0',
 			],
@@ -164,8 +150,6 @@ class Migration_Create_User_Table extends CI_Migration {
                 'created_on'              => '1268889823',
                 'last_login'              => '1268889823',
                 'active'                  => '1',
-                'first_name'              => 'Admin',
-                'last_name'               => 'User',
                 'company_id'              => 1,
                 'phone'                   => '0',
 			],
@@ -179,8 +163,6 @@ class Migration_Create_User_Table extends CI_Migration {
                 'created_on'              => '1268889823',
                 'last_login'              => '1268889823',
                 'active'                  => '1',
-                'first_name'              => 'Staff',
-                'last_name'               => 'User',
                 'company_id'              => 1,
                 'phone'                   => '0',
             ]

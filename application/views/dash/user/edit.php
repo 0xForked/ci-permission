@@ -98,7 +98,7 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="status">Status</label>
-                                    <select class="form-control" id="status" name="status">
+                                    <select class="form-control" id="status" name="status" disabled>
                                         <option value="1" <?= ((int)$user->active === 1) ? 'selected' : ' ' ?>>Active</option>
                                         <option value="0" <?= ((int)$user->active === 0) ? 'selected' : ' ' ?>>Deactive</option>
                                     </select>

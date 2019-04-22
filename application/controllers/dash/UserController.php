@@ -148,6 +148,19 @@ class UserController extends CI_Controller {
         redirect('dash/users', 'refresh');
     }
 
+    public function deactive($id)
+    {
+        if (!isset($id)) {
+            // $this->set_error('deactivate_unsuccessful');
+			return FALSE;
+        } else if ($this->uid() == $id) {
+            // $this->set_error('deactivate_current_user_unsuccessful');
+			return FALSE;
+        }
+
+        return $this->user->deactivate($id);
+    }
+
     private function createView()
     {
         $title = self::TAG;

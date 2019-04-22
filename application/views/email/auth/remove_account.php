@@ -1,0 +1,1 @@
+<!-- this email template is for remove account confirmation/information -->

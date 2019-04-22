@@ -1,0 +1,1 @@
+<!-- this is email template for user information if hes account was deactivate -->
