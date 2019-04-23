@@ -92,10 +92,23 @@ define('ADMIN_ROLE', 3);
 define('STAFF_ROLE', 4);
 define('MEMBER_ROLE', 5);
 
-define('BCRYPT_COST', 12);
+
 define('MAX_PASSWORD_SIZE_BYTES', 4096);
-define('TRACK_LOGIN_IP_ADDRESS', 5);
+
+// Track the number of failed login attempts for each user or ip.
 define('TRACK_LOGIN_ATTEMPTS', TRUE);
-define('ATTEMPTS_LOCKOUT_TIME', 600);
+
+/** The number of seconds to lockout an account due to exceeded attempts
+ * You should not use a value below 60 (1 minute) 
+ * */
+define('ATTEMPTS_LOCKOUT_TIME', 60); //600
+
+// The maximum number of failed login attempts.
 define('MAXIMUM_LOGIN_ATTEMPTS', 3);
+
+/** The number of seconds after which a forgot password request will expire. 
+ * If set to 0, forgot password requests will not expire.
+ * 30 minutes to 1 hour are good values (enough for a user to receive the email and reset its password)
+ * You should not set a value too high, as it would be a security issue! 
+ * */
 define('FORGOT_PASSWORD_EXPIRATION', 1800);
