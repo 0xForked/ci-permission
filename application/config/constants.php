@@ -97,6 +97,7 @@ define('MAX_PASSWORD_SIZE_BYTES', 4096);
 
 // Track the number of failed login attempts for each user or ip.
 define('TRACK_LOGIN_ATTEMPTS', TRUE);
+define('TRACK_LOGIN_IP_ADDRESS', TRUE);
 
 /** The number of seconds to lockout an account due to exceeded attempts
  * You should not use a value below 60 (1 minute) 
