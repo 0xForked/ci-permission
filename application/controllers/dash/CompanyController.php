@@ -8,13 +8,13 @@ class CompanyController extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
-        
-        // check user isLoggedIn 
+
+        // check user isLoggedIn
         $this->auth->routeAccess();
 
-        // check if user is ... 
+        // check if user is ...
         // if not redirect to user role page
-        if (!hasRole(['root', 'vendor'])) {
+        if (!has_role(['root', 'vendor'])) {
             show_404();
         }
     }
@@ -58,7 +58,7 @@ class CompanyController extends CI_Controller {
     {
         $title = $this->input->post('title');
         $description = $this->input->post('description');
-     
+
         $company = $this->company->find($id);
 
         if ($company) {
@@ -80,7 +80,7 @@ class CompanyController extends CI_Controller {
 
     private function createView()
     {
-        $title = self::TAG; 
+        $title = self::TAG;
         $this->load->view('dash/company/create', compact('title'));
     }
 

@@ -5,6 +5,7 @@ application/cache/*
 
 application/logs/*
 application/config/mail.php
+application/config/database.php
 !application/logs/index.html
 
 !application/*/.htaccess

@@ -51,8 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // Migration
-$route['db/migrate']['GET'] = 'MigrationController/latest';
-$route['db/rollback/(:num)']['GET'] = 'MigrationController/rollback/$1';
+// $route['db/migrate']['GET'] = 'MigrationController/latest';
+// $route['db/rollback/(:num)']['GET'] = 'MigrationController/rollback/$1';
 // Migration-End
 
 // Auth
@@ -105,6 +105,6 @@ $route['dash/permissions/(:num)']['GET'] = 'dash/PermissionController/delete/$1'
 $route['dash/permissions']['POST'] = 'dash/PermissionController/store'; // store data to database
 // Permission-End
 
-$route['default_controller'] = 'PublicController';
+$route['default_controller'] = 'Welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

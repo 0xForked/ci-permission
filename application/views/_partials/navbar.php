@@ -43,7 +43,7 @@
                         Dashboard <span class="sr-only"></span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item dropdown <?php
                     if (isset($title)) {
                         if ($title === 'access') {
@@ -63,24 +63,24 @@
                         Access
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <?php if(hasRole('root')) : ?>
+                    <?php if(has_role('root')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/root">Root</a>
                     <?php endif; ?>
-                    <?php if(hasRole('vendor')) : ?>
+                    <?php if(has_role('vendor')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/vendor">Vendor</a>
                     <?php endif; ?>
-                    <?php if(hasRole('admin')) : ?>
+                    <?php if(has_role('admin')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/admin">Admin</a>
                     <?php endif; ?>
-                    <?php if(hasRole('staff')) : ?>
+                    <?php if(has_role('staff')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/staff">Staff</a>
                     <?php endif; ?>
-                    <?php if(hasRole('member')) : ?>
+                    <?php if(has_role('member')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/member">Member</a>
                     <?php endif; ?>
 
                 </li>
-                <?php if(hasRole(['root', 'vendor', 'admin'])) : ?>
+                <?php if(has_role(['root', 'vendor', 'admin'])) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'user') {
@@ -104,10 +104,10 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/users/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(hasRole(['root', 'vendor'])) : ?>
+                <?php if(has_role(['root', 'vendor'])) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
-                            if ($title === 'company') { 
+                            if ($title === 'company') {
                                 echo 'active';
                             }
                         }
@@ -128,7 +128,7 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/companies/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(hasRole('root')) : ?>
+                <?php if(has_role('root')) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'role') {
@@ -152,7 +152,7 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/roles/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(hasRole('root')) : ?>
+                <?php if(has_role('root')) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'permission') {

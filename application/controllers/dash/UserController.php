@@ -18,7 +18,7 @@ class UserController extends CI_Controller {
 
         // check if user is ...
         // if not redirect to user role page
-        if (!hasRole(['root', 'vendor', 'admin'])) {
+        if (!has_role(['root', 'vendor', 'admin'])) {
             show_404();
         }
 
@@ -29,11 +29,11 @@ class UserController extends CI_Controller {
         $title = self::TAG;
         $company = $this->auth->company();
 
-        if (hasRole('root')) {
+        if (has_role('root')) {
             $user_data = $this->user->all();
         }
 
-        if (hasRole('vendor')) {
+        if (has_role('vendor')) {
             $user_data = $this->user->usersWithRolesAndHasCompany([
                             VENDOR_ROLE,
                             ADMIN_ROLE,
@@ -41,7 +41,7 @@ class UserController extends CI_Controller {
                         ]);
         }
 
-        if (hasRole('admin')) {
+        if (has_role('admin')) {
             $user_data = $this->user->usersWithRolesAndHasCompany([
                             ADMIN_ROLE,
                             STAFF_ROLE
@@ -165,17 +165,17 @@ class UserController extends CI_Controller {
     {
         $title = self::TAG;
 
-        if (hasRole('root')) {
+        if (has_role('root')) {
             $roles = $this->role->all();
             $companies = $this->company->all();
         }
 
-        if (hasRole('vendor')) {
+        if (has_role('vendor')) {
             $roles = $this->role->whereNot([ROOT_ROLE]);
             $companies = $this->company->all();
         }
 
-        if (hasRole('admin')) {
+        if (has_role('admin')) {
             $company = $this->auth->company();
             $roles = $this->role->whereNot([ROOT_ROLE, VENDOR_ROLE, MEMBER_ROLE]);
             $companies = $this->company->findAll($company);
@@ -188,17 +188,17 @@ class UserController extends CI_Controller {
     {
         $title = self::TAG;
 
-        if (hasRole('root')) {
+        if (has_role('root')) {
             $roles = $this->role->all();
             $companies = $this->company->all();
         }
 
-        if (hasRole('vendor')) {
+        if (has_role('vendor')) {
             $roles = $this->role->whereNot([ROOT_ROLE]);
             $companies = $this->company->all();
         }
 
-        if (hasRole('admin')) {
+        if (has_role('admin')) {
             $company = $this->auth->company();
             $roles = $this->role->whereNot([ROOT_ROLE, VENDOR_ROLE, MEMBER_ROLE]);
             $companies = $this->company->findAll($company);

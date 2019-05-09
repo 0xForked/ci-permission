@@ -1,7 +1,7 @@
 <?php
 
-if(! function_exists("isActive")) {
-    function isActive($status)
+if(! function_exists("is_active")) {
+    function is_active($status)
     {
         return (int)$status === 1 ? true : false;
     }
@@ -25,10 +25,10 @@ if(! function_exists("can")) {
     }
 }
 
-//if( hasRoles(['admin', 'editor']) ) {}
-//if( hasRoles('subscriber') ) {}   
-if(! function_exists("hasRole")) {
-    function hasRole($roles)
+//if( has_role(['admin', 'editor']) ) {}
+//if( has_role('subscriber') ) {}
+if(! function_exists("has_role")) {
+    function has_role($roles)
     {
         $auth = new Auth();
         return $auth->hasRole($roles);

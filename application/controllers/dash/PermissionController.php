@@ -8,13 +8,13 @@ class PermissionController extends CI_Controller {
     public function __construct()
     {
        parent::__construct();
-        
-        // check user isLoggedIn 
+
+        // check user isLoggedIn
         $this->auth->routeAccess();
 
-        // check if user is ... 
+        // check if user is ...
         // if not redirect to user role page
-        if (!hasRole('root')) {
+        if (!has_role('root')) {
             show_404();
         }
     }

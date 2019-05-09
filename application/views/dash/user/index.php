@@ -43,10 +43,10 @@
                                 </div>
                             </td>
                             <td>
-                                <?= (isActive($user->active)) ? 'active' : 'inactive' ?>
+                                <?= (is_active($user->active)) ? 'active' : 'inactive' ?>
                             </td>
                             <td>
-                                <?php if(isActive($user->active)): ?>
+                                <?php if(is_active($user->active)): ?>
                                     <!-- deactive user -->
                                     <a href="<?= base_url() ?>dash/users/<?= $user->id ?>/deactive"><i class="fas fa-user-alt-slash"></i></a>
                                 <?php endif; ?>

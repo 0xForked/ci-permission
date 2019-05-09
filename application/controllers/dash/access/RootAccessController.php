@@ -7,13 +7,13 @@ class RootAccessController extends CI_Controller {
     {
         parent::__construct();
 
-        // check user isLoggedIn 
+        // check user isLoggedIn
         $this->auth->routeAccess();
 
-        // check if user is vendor 
+        // check if user is vendor
         // if not redirect to user role page
-        if (!hasRole('root')) {
-            show_404();  
+        if (!has_role('root')) {
+            show_404();
         }
     }
 
