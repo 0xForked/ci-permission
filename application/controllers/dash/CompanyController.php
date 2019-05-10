@@ -14,7 +14,7 @@ class CompanyController extends CI_Controller {
 
         // check if user is ...
         // if not redirect to user role page
-        if (!has_role(['root', 'vendor'])) {
+        if (!has_roles(['root', 'vendor'])) {
             show_404();
         }
     }

@@ -8,7 +8,7 @@ class ForgotPasswordController extends CI_Controller
     {
         parent::__construct();
         $this->load->library('Mailer');
-		if($this->auth->loginStatus()){
+		if(is_logged_in()){
             redirect('dash/home');
         }
     }
@@ -26,7 +26,7 @@ class ForgotPasswordController extends CI_Controller
     private function validate()
     {
         $user_email = $this->input->post('email');
-        $this->form_validation->set_rules('email', 'Email', 'required|callback_mail_exists');
+        $this->form_validation->set_rules('email', 'Email', 'required|mail_exists');
         if ($this->form_validation->run() == TRUE) {
             $forgot_code = $this->user->forgottenPassword($user_email);
             if (!$forgot_code) {
@@ -54,16 +54,6 @@ class ForgotPasswordController extends CI_Controller
         ];
 
         return $this->mailer->send($data);
-    }
-
-    public function mail_exists($email)
-    {
-        $user = $this->user->find(NULL, $email);
-        if (!$user) {
-			$this->form_validation->set_message('mail_exists', 'Oops we couldnt find user with that address.');
-			return FALSE;
-        }
-		return TRUE;
     }
 
 }

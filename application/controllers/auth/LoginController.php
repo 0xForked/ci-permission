@@ -11,7 +11,7 @@ class LoginController extends CI_Controller
 
     public function index()
     {
-		if($this->auth->loginStatus()){
+		if(is_logged_in()){
             redirect('dash/home');
         }
 

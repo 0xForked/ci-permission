@@ -14,7 +14,7 @@ class RoleController extends CI_Controller {
 
         // check if user is ...
         // if not redirect to user role page
-        if (!has_role('root')) {
+        if (!has_roles('root')) {
             show_404();
         }
     }

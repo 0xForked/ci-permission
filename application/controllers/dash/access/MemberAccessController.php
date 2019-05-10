@@ -12,7 +12,7 @@ class MemberAccessController extends CI_Controller {
 
         // check if user is vendor
         // if not redirect to user role page
-        if (!has_role('member')) {
+        if (!has_roles('member')) {
             show_404();
         }
     }

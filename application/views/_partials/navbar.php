@@ -17,7 +17,7 @@
         id="navbarSupportedContent"
     >
         <ul class="navbar-nav mr-auto">
-            <?php if(!$this->auth->loginStatus()) : ?>
+            <?php if(!is_logged_in()) : ?>
             <li class="nav-item <?php
                 if (isset($title)) {
                     if ($title === 'home') {
@@ -31,7 +31,7 @@
             </li>
             <?php endif; ?>
 
-            <?php if($this->auth->loginStatus()) : ?>
+            <?php if(is_logged_in()) : ?>
                 <li class="nav-item <?php
                     if (isset($title)) {
                         if ($title === 'dashboard') {
@@ -63,24 +63,24 @@
                         Access
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <?php if(has_role('root')) : ?>
+                    <?php if(has_roles('root')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/root">Root</a>
                     <?php endif; ?>
-                    <?php if(has_role('vendor')) : ?>
+                    <?php if(has_roles('vendor')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/vendor">Vendor</a>
                     <?php endif; ?>
-                    <?php if(has_role('admin')) : ?>
+                    <?php if(has_roles('admin')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/admin">Admin</a>
                     <?php endif; ?>
-                    <?php if(has_role('staff')) : ?>
+                    <?php if(has_roles('staff')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/staff">Staff</a>
                     <?php endif; ?>
-                    <?php if(has_role('member')) : ?>
+                    <?php if(has_roles('member')) : ?>
                     <a class="dropdown-item" href="<?= base_url() ?>dash/access/member">Member</a>
                     <?php endif; ?>
 
                 </li>
-                <?php if(has_role(['root', 'vendor', 'admin'])) : ?>
+                <?php if(has_roles(['root', 'vendor', 'admin'])) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'user') {
@@ -104,7 +104,7 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/users/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(has_role(['root', 'vendor'])) : ?>
+                <?php if(has_roles(['root', 'vendor'])) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'company') {
@@ -128,7 +128,7 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/companies/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(has_role('root')) : ?>
+                <?php if(has_roles('root')) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'role') {
@@ -152,7 +152,7 @@
                         <a class="dropdown-item" href="<?= base_url() ?>dash/roles/create">Create</a>
                     </li>
                 <?php endif; ?>
-                <?php if(has_role('root')) : ?>
+                <?php if(has_roles('root')) : ?>
                     <li class="nav-item dropdown <?php
                         if (isset($title)) {
                             if ($title === 'permission') {
@@ -180,7 +180,7 @@
         </ul>
         <div class="my-2 my-lg-0">
             <!-- kalau login status === false se tunjung login dng register button -->
-            <?php if(!$this->auth->loginStatus()) : ?>
+            <?php if(!is_logged_in()) : ?>
                 <a class="btn btn-outline-success my-2 my-sm-0" href="<?= base_url() ?>auth/login">Login</a>
                 <a class="btn btn-outline-success my-2 my-sm-0" href="<?= base_url() ?>auth/register">Register</a>
             <?php else : ?>

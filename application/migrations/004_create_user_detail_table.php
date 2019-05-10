@@ -7,12 +7,6 @@ class Migration_Create_User_Detail_Table extends CI_Migration {
     public function up()
     {
 		$this->dbforge->add_field([
-			'id' => [
-				'type'           => 'MEDIUMINT',
-				'constraint'     => '8',
-				'unsigned'       => TRUE,
-				'auto_increment' => TRUE
-            ],
             'user_id' => [
 				'type'              => 'INT',
 				'constraint'        => 5,
@@ -28,7 +22,6 @@ class Migration_Create_User_Detail_Table extends CI_Migration {
 				'constraint' => '100',
 			]
 		]);
-        $this->dbforge->add_key('id', TRUE);
 		$this->dbforge->add_field("CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(id)");
         $this->dbforge->create_table('users_detail');
 
@@ -60,7 +53,7 @@ class Migration_Create_User_Detail_Table extends CI_Migration {
                 'last_name'     => 'User',
 			],
 			[
-                'user_id'       => 3,
+                'user_id'       => 4,
                 'first_name'    => 'Staff',
                 'last_name'     => 'User',
 			],

@@ -12,7 +12,7 @@ class AdminAccessController extends CI_Controller {
 
         // check if user is vendor
         // if not redirect to user role page
-        if (!has_role('admin')) {
+        if (!has_roles('admin')) {
             show_404();
         }
     }

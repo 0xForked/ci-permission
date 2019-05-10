@@ -16,7 +16,7 @@ class Auth
     public $roles = 0;
     public $company = null;
     public $permissions = null;
-    public $loginStatus = false;
+    public $login_status = false;
 
     public function __construct()
     {
@@ -28,13 +28,13 @@ class Auth
 
     protected function init()
     {
-        if ($this->ci->session->has_userdata("uid") && $this->ci->session->loginStatus) {
+        if ($this->ci->session->has_userdata("uid") && $this->ci->session->login_status) {
             $this->uid = $this->ci->session->uid;
             $this->username = $this->ci->session->username;
             $this->email = $this->ci->session->email;
             $this->roles = $this->ci->session->roles;
             $this->company = $this->ci->session->company;
-            $this->loginStatus = true;
+            $this->login_status = true;
         }
         return;
     }
@@ -77,14 +77,14 @@ class Auth
             "email" => $user->email,
             "roles" => $this->userHasRoles(),
             "company" => $user->company_id,
-            "loginStatus" => true
+            "login_status" => true
         ));
         return redirect("dash/home");
     }
 
     public function loginStatus()
     {
-        return $this->loginStatus;
+        return $this->login_status;
     }
 
     public function authenticate()
@@ -272,7 +272,7 @@ class Auth
             "uid",
             "username",
             "email",
-            "loginStatus",
+            "login_status",
             "roles",
             "company"
         ]);

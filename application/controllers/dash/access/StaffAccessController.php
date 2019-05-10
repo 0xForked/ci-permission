@@ -12,7 +12,7 @@ class StaffAccessController extends CI_Controller {
 
         // check if user is vendor
         // if not redirect to user role page
-        if (!has_role('staff')) {
+        if (!has_roles('staff')) {
             show_404();
         }
     }

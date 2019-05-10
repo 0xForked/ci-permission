@@ -18,7 +18,7 @@ class UserController extends CI_Controller {
 
         // check if user is ...
         // if not redirect to user role page
-        if (!has_role(['root', 'vendor', 'admin'])) {
+        if (!has_roles(['root', 'vendor', 'admin'])) {
             show_404();
         }
 
@@ -29,11 +29,11 @@ class UserController extends CI_Controller {
         $title = self::TAG;
         $company = $this->auth->company();
 
-        if (has_role('root')) {
+        if (has_roles('root')) {
             $user_data = $this->user->all();
         }
 
-        if (has_role('vendor')) {
+        if (has_roles('vendor')) {
             $user_data = $this->user->usersWithRolesAndHasCompany([
                             VENDOR_ROLE,
                             ADMIN_ROLE,
@@ -41,7 +41,7 @@ class UserController extends CI_Controller {
                         ]);
         }
 
-        if (has_role('admin')) {
+        if (has_roles('admin')) {
             $user_data = $this->user->usersWithRolesAndHasCompany([
                             ADMIN_ROLE,
                             STAFF_ROLE
@@ -165,20 +165,20 @@ class UserController extends CI_Controller {
     {
         $title = self::TAG;
 
-        if (has_role('root')) {
+        if (has_roles('root')) {
             $roles = $this->role->all();
             $companies = $this->company->all();
         }
 
-        if (has_role('vendor')) {
+        if (has_roles('vendor')) {
             $roles = $this->role->whereNot([ROOT_ROLE]);
             $companies = $this->company->all();
         }
 
-        if (has_role('admin')) {
-            $company = $this->auth->company();
+        if (has_roles('admin')) {
+            $company_id = $this->auth->company();
             $roles = $this->role->whereNot([ROOT_ROLE, VENDOR_ROLE, MEMBER_ROLE]);
-            $companies = $this->company->findAll($company);
+            $companies = $this->company->findBy('id', $company_id);
         }
 
         $this->load->view('dash/user/create', compact('title', 'roles', 'companies'));
@@ -188,20 +188,20 @@ class UserController extends CI_Controller {
     {
         $title = self::TAG;
 
-        if (has_role('root')) {
+        if (has_roles('root')) {
             $roles = $this->role->all();
             $companies = $this->company->all();
         }
 
-        if (has_role('vendor')) {
+        if (has_roles('vendor')) {
             $roles = $this->role->whereNot([ROOT_ROLE]);
             $companies = $this->company->all();
         }
 
-        if (has_role('admin')) {
-            $company = $this->auth->company();
+        if (has_roles('admin')) {
+            $company_id = $this->auth->company();
             $roles = $this->role->whereNot([ROOT_ROLE, VENDOR_ROLE, MEMBER_ROLE]);
-            $companies = $this->company->findAll($company);
+            $companies = $this->company->findBy($company_id);
         }
 
         $user = $this->user->find($id);

@@ -28,6 +28,16 @@ class User extends CI_Model
         return $this->db->get()->row();
     }
 
+    public function findBy($key = NULL, $value = NULL)
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('users_detail', 'users_detail.user_id = users.id');
+        if ($key && $value)  $this->db->where($key, $value); else show_404();
+        return $this->db->get()->row();
+    }
+
+
     public function add($data)
     {
         $data["password"] = $this->auth->hashPassword($data["password"]);

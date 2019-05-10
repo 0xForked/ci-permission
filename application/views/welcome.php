@@ -14,6 +14,7 @@
                     </br><a href="https://github.com/aasumitro/ci-permission-example">Repository</a> &#8226;
                     <a href="https://github.com/aasumitro/ci-permission-example/blob/development/readme.md">Documentation</a> &#8226;
                     <a href="https://aasumitro.id">@author</a>
+                    </br>Page rendered in <strong>{elapsed_time}</strong> seconds.
                 </p>
             </div>
         </div>

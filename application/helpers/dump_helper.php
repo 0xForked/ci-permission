@@ -8,10 +8,21 @@ if (!function_exists('dd')) {
     }
 }
 
-if (!function_exists('dd_je')) {
-    function dd_je($string)
+if (!function_exists('dd_pre')) {
+    function dd_pre($string)
     {
-        var_dump(json_encode($string));
+        echo '<pre>';
+        var_dump($string);
+        die();
+        echo '</pre>';
+    }
+}
+
+if (!function_exists('dd_json')) {
+    function dd_json($string)
+    {
+        header("Content-type: application/json; charset=utf-8");
+        echo json_encode($string);
         die();
     }
 }

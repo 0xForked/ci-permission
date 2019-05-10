@@ -20,6 +20,7 @@ class Migration_Create_User_Credential_Table extends CI_Migration {
 			'username' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '100',
+				'unique' => TRUE
 			],
 			'password' => [
 				'type'       => 'VARCHAR',
