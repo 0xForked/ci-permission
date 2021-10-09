@@ -36,8 +36,7 @@ class Auth
             $this->company = $this->ci->session->company;
             $this->login_status = true;
         }
-        return;
-    }
+	}
 
     public function credentials($identity, $password)
     {
@@ -79,18 +78,19 @@ class Auth
             "company" => $user->company_id,
             "login_status" => true
         ));
-        return redirect("dash/home");
+
+		redirect("dash/home");
     }
 
-    public function loginStatus()
-    {
+    public function loginStatus(): bool
+	{
         return $this->login_status;
     }
 
     public function authenticate()
     {
         if (!$this->loginStatus()) {
-            return redirect('auth/login');
+			redirect('auth/login');
         }
         return true;
     }
@@ -104,11 +104,12 @@ class Auth
                 }
             }
         }
+
         return $this->authenticate();
     }
 
-    public function guest()
-    {
+    public function guest(): bool
+	{
         return !$this->loginStatus();
     }
 
@@ -127,8 +128,8 @@ class Auth
         return $this->email;
     }
 
-    public function roles()
-    {
+    public function roles(): int
+	{
         return $this->roles;
     }
 
@@ -142,11 +143,14 @@ class Auth
         return $this->permissions;
     }
 
-    protected function userHasRoles()
-    {
+    protected function userHasRoles(): array
+	{
         return array_map(function ($item) {
             return $item["role_id"];
-        }, $this->ci->db->get_where("user_has_role", array("user_id" => $this->uid()))->result_array());
+        }, $this->ci->db->get_where(
+			"user_has_role",
+			array("user_id" => $this->uid())
+		)->result_array());
     }
 
     public function userRole()
@@ -154,8 +158,8 @@ class Auth
         return $this->userRoles($this->roles[0])[0];
     }
 
-    public function userRoles()
-    {
+    public function userRoles(): array
+	{
         return array_map(function ($item) {
             return $item["title"];
         }, $this->ci->db
@@ -166,8 +170,8 @@ class Auth
             ->get()->result_array());
     }
 
-    public function userPermissions()
-    {
+    public function userPermissions(): array
+	{
         return array_map(function ($item) {
             return $item["title"];
         }, $this->ci->db
@@ -211,7 +215,9 @@ class Auth
             return true;
         if($this->can($routeName))
             return true;
-        return redirect('exceptions/custom_404', 'refresh');
+
+        redirect('exceptions/custom_404', 'refresh');
+		return false;
     }
 
     public function hasRole($roles, $requireAll = false)
@@ -234,8 +240,8 @@ class Auth
         return $requireAll;
     }
 
-    public function checkRole($role)
-    {
+    public function checkRole($role): bool
+	{
         return in_array($role, $this->userRoles());
     }
 
@@ -259,13 +265,13 @@ class Auth
         return $requireAll;
     }
 
-    public function checkPermission($permission)
-    {
+    public function checkPermission($permission): bool
+	{
         return in_array($permission, $this->userPermissions());
     }
 
-    public function logout()
-    {
+    public function logout(): bool
+	{
         $this->ci->user->clearRememberCode($this->uid());
         $this->ci->user->clearForgottenPasswordCode($this->uid());
         $this->ci->session->unset_userdata([

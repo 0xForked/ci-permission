@@ -13,8 +13,8 @@ if (!function_exists('dd_pre')) {
     {
         echo '<pre>';
         var_dump($string);
-        die();
-        echo '</pre>';
+		echo '</pre>';
+		die();
     }
 }
 

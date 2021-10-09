@@ -118,7 +118,7 @@ class Migration_Create_User_Credential_Table extends CI_Migration {
             [
                 'ip_address'              => '127.0.0.1',
                 'username'                => 'root',
-                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa', //password
                 'email'                   => 'root@test.id',
                 'activation_code'         => '',
                 'forgotten_password_code' => NULL,
@@ -131,7 +131,7 @@ class Migration_Create_User_Credential_Table extends CI_Migration {
             [
                 'ip_address'              => '127.0.0.1',
                 'username'                => 'vendor',
-                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa', //password
                 'email'                   => 'vendor@test.id',
                 'activation_code'         => '',
                 'forgotten_password_code' => NULL,
@@ -144,7 +144,7 @@ class Migration_Create_User_Credential_Table extends CI_Migration {
             [
                 'ip_address'              => '127.0.0.1',
                 'username'                => 'admin',
-                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa', //password
                 'email'                   => 'admin@test.id',
                 'activation_code'         => '',
                 'forgotten_password_code' => NULL,
@@ -157,7 +157,7 @@ class Migration_Create_User_Credential_Table extends CI_Migration {
             [
                 'ip_address'              => '127.0.0.1',
                 'username'                => 'staff',
-                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
+                'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa', //password
                 'email'                   => 'staff@test.id',
                 'activation_code'         => '',
                 'forgotten_password_code' => NULL,

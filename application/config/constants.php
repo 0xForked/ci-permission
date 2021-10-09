@@ -92,32 +92,32 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 | used to indicated user role by (Human Readable)
 |
 */
-define('ROOT_ROLE', 1);
-define('VENDOR_ROLE', 2);
-define('ADMIN_ROLE', 3);
-define('STAFF_ROLE', 4);
-define('MEMBER_ROLE', 5);
+defined('ROOT_ROLE') 		OR define('ROOT_ROLE', 1);
+defined('VENDOR_ROLE') 	OR  define('VENDOR_ROLE', 2);
+defined('ADMIN_ROLE') 		OR define('ADMIN_ROLE', 3);
+defined('STAFF_ROLE') 		OR define('STAFF_ROLE', 4);
+defined('MEMBER_ROLE') 	OR define('MEMBER_ROLE', 5);
 
 // Max Password Size in Byte
-define('MAX_PASSWORD_SIZE_BYTES', 4096);
+defined('MAX_PASSWORD_SIZE_BYTES') 	OR define('MAX_PASSWORD_SIZE_BYTES', 4096);
 
 // Track the number of failed login attempts for each user or ip.
-define('TRACK_LOGIN_ATTEMPTS', TRUE);
+defined('TRACK_LOGIN_ATTEMPTS') 		OR define('TRACK_LOGIN_ATTEMPTS', TRUE);
 
 // Track user ip address.
-define('TRACK_LOGIN_IP_ADDRESS', TRUE);
+defined('TRACK_LOGIN_IP_ADDRESS') 		OR define('TRACK_LOGIN_IP_ADDRESS', TRUE);
 
 /** The number of seconds to lockout an account due to exceeded attempts
  * You should not use a value below 60 (1 minute)
  * */
-define('ATTEMPTS_LOCKOUT_TIME', 60); //600
+defined('ATTEMPTS_LOCKOUT_TIME') 		OR define('ATTEMPTS_LOCKOUT_TIME', 60); //600
 
 // The maximum number of failed login attempts.
-define('MAXIMUM_LOGIN_ATTEMPTS', 3);
+defined('MAXIMUM_LOGIN_ATTEMPTS') 		OR define('MAXIMUM_LOGIN_ATTEMPTS', 3);
 
 /** The number of seconds after which a forgot password request will expire.
  * If set to 0, forgot password requests will not expire.
  * 30 minutes to 1 hour are good values (enough for a user to receive the email and reset its password)
  * You should not set a value too high, as it would be a security issue!
  * */
-define('FORGOT_PASSWORD_EXPIRATION', 1800);
+defined('FORGOT_PASSWORD_EXPIRATION') 	OR define('FORGOT_PASSWORD_EXPIRATION', 1800);
